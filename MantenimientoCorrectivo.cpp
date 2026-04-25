@@ -3,3 +3,9 @@
 //
 
 #include "MantenimientoCorrectivo.h"
+
+void MantenimientoCorrectivo::aplicar(Equipo &e) {
+}
+
+void MantenimientoCorrectivo::reducirIncidencias(Equipo &e) {
+}

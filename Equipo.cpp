@@ -7,10 +7,17 @@
 void Equipo::degradar() {
 }
 
-void Equipo::agregarIncidencia() {
+void Equipo::agregarIncidencia( Incidencia* incidencia) {
+    Incidencias.push_back(incidencia);
+
 }
 
 void Equipo::resolverIncidencia() {
+    for (int i = 0; i < Incidencias.size(); i++) {
+        if (Incidencias[i]->estaActiva()) {
+            Incidencias[i]->resolver();
+        }
+    }
 }
 
 double Equipo::calcularPrioridad() {
@@ -31,5 +38,5 @@ double Equipo::getEstado() {
 int Equipo::getTiempoInavtivo() {
 }
 
-int Equipo::incidenciaActiva() {
+int Equipo::incidenciaActivas() {
 }

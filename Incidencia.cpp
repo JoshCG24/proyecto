@@ -5,13 +5,17 @@
 #include "Incidencia.h"
 
 void Incidencia::resolver() {
+     activa=false;
 }
 
 bool Incidencia::estaActiva() {
+     activa=true;
 }
 
 int Incidencia::getSeveridad() {
+     return severidad;
 }
 
 int Incidencia::getDiaAparicion() {
+     return diaAparicion;
 }
