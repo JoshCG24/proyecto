@@ -17,6 +17,7 @@ private:
 
 
 public:
+    Incidencia(string id, string descripcion, int dia, int severidad);
     void resolver();
     bool  estaActiva();
     int getSeveridad();
