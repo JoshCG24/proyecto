@@ -4,6 +4,13 @@
 
 #include "Incidencia.h"
 
+Incidencia::Incidencia(string id, string descripcion, int dia, int severidad) {
+     this->id = id;
+     this->descripcion = descripcion;
+     this->diaAparicion = dia;
+     this->severidad = severidad;
+}
+
 void Incidencia::resolver() {
      activa=false;
 }
