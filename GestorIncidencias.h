@@ -5,7 +5,7 @@
 #ifndef PROYECTO_GESTORINCIDENCIAS_H
 #define PROYECTO_GESTORINCIDENCIAS_H
 
-
+#include "Equipo.h"
 class GestorIncidencias {
     public:
     void actualizarIncidencias(vector<Equipo*> equipos,int dia);

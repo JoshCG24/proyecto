@@ -25,4 +25,10 @@ add_executable(proyecto main.cpp
         ArchivoManager.cpp
         ArchivoManager.h
         GestorIncidencias.cpp
-        GestorIncidencias.h)
+        GestorIncidencias.h
+        SelectorTecnicos.cpp
+        SelectorTecnicos.h
+        CalculadorRiesgo.cpp
+        CalculadorRiesgo.h
+        Simulador.cpp
+        Simulador.h)
