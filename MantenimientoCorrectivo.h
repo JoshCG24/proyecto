@@ -12,6 +12,7 @@ private:
     int reduccionIncidencias;
     double mejoraEstado;
 public:
+    MantenimientoCorrectivo(int reduccionIncidencias,double mejoraEstado);
     void aplicar(Equipo& e) override;
     void reducirIncidencias(Equipo& e);
 
