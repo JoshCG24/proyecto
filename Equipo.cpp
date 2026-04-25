@@ -38,5 +38,5 @@ double Equipo::getEstado() {
 int Equipo::getTiempoInavtivo() {
 }
 
-int Equipo::incidenciaActiva() {
+int Equipo::incidenciaActivas() {
 }
