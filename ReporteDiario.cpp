@@ -3,3 +3,6 @@
 //
 
 #include "ReporteDiario.h"
+
+string ReporteDiario::generarTexto() {
+}

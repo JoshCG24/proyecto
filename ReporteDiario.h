@@ -17,6 +17,9 @@ private:
     double riesgoTotal;
     string estadoGeneral;
 
+public:
+    string generarTexto();
+
 };
 
 

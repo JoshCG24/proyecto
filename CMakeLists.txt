@@ -21,4 +21,8 @@ add_executable(proyecto main.cpp
         BuscarEquipos.cpp
         BuscarEquipos.h
         ReporteDiario.cpp
-        ReporteDiario.h)
+        ReporteDiario.h
+        ArchivoManager.cpp
+        ArchivoManager.h
+        GestorIncidencias.cpp
+        GestorIncidencias.h)
