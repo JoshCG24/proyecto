@@ -16,12 +16,12 @@ private:
     int criticidad;
     double estado;
     int tiempo_inavtivo;
-    vector<Incidencia*> Incidencia ;
+    vector<Incidencia*> Incidencias ;
 
 
     public:
     void degradar();
-    void agregarIncidencia();
+    void agregarIncidencia( Incidencia* incidencia);
     void resolverIncidencia();
     double calcularPrioridad();
     void aplicarMantenimiento();
