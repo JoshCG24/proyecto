@@ -4,7 +4,13 @@
 
 #include "MantenimientoCorrectivo.h"
 
+MantenimientoCorrectivo::MantenimientoCorrectivo(int reduccionIncidencias, double mejoraEstado) {
+    this->mejoraEstado = mejoraEstado;
+    this->reduccionIncidencias = reduccionIncidencias;
+}
+
 void MantenimientoCorrectivo::aplicar(Equipo &e) {
+
 }
 
 void MantenimientoCorrectivo::reducirIncidencias(Equipo &e) {
