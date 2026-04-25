@@ -4,7 +4,9 @@
 
 #ifndef PROYECTO_GESTORINCIDENCIAS_H
 #define PROYECTO_GESTORINCIDENCIAS_H
-
+#include "Equipo.h"
+#include <vector>
+using namespace std;
 
 class GestorIncidencias {
     public:

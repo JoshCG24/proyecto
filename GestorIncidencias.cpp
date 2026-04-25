@@ -3,3 +3,17 @@
 //
 
 #include "GestorIncidencias.h"
+
+
+void GestorIncidencias::generarIncidencia(Equipo *e, int dia) {
+
+
+
+}
+void GestorIncidencias::actualizarIncidencias ( vector<Equipo *> equipos, int dia) {
+
+}
+
+
+
+
