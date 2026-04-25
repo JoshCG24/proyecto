@@ -7,6 +7,9 @@
 
 
 class GestorIncidencias {
+    public:
+    void actualizarIncidencias(vector<Equipo*> equipos,int dia);
+    void generarIncidencia(Equipo* e,int dia);
 };
 
 
