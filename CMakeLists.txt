@@ -31,4 +31,7 @@ add_executable(proyecto main.cpp
         CalculadorRiesgo.cpp
         CalculadorRiesgo.h
         Simulador.cpp
-        Simulador.h)
+        Simulador.h
+        Tecnico.cpp
+        Tecnico.h
+)

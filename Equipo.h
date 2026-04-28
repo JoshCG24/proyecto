@@ -13,7 +13,7 @@ class Equipo {
 private:
     string id;//indentidad del equipo
     int criticidad;//que tan importante
-    double estado;//que tan bien esta del 1-100
+    double estado=100;//que tan bien esta del 1-100
     int tiempo_inactivo;//cuanto tiempo lleva sin llevar
     vector<Incidencia*> Incidencias ;//lista prblemas
 

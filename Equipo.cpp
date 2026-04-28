@@ -5,11 +5,16 @@
 #include "Equipo.h"
 
 void Equipo::degradar() {
-    estado -= 2;
+    if (estado > 0) {
+        estado -= 2;
+    }
+
+    if (estado < 0) {
+        estado = 0;
+    }
+
     tiempo_inactivo ++;
-
 }
-
 void Equipo::agregarIncidencia( Incidencia* incidencia) {
     Incidencias.push_back(incidencia);
 
