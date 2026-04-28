@@ -6,16 +6,15 @@
 
 void MantenimientoPreventivo::aplicar(Equipo &e) {
 
-    double mejora = 0.15;
+    double mejora = 25;
 
     double nuevoEstado = e.getEstado() + mejora;
 
-    if (nuevoEstado > 1.0) {
-        nuevoEstado = 1.0;
+    if (nuevoEstado > 100) {
+        nuevoEstado = 100;
     }
 
     e.setEstado(nuevoEstado);
-    e.getTiempoInactivo();
-
+    e.setTiempoInactivo(0);
 
 }
