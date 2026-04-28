@@ -6,7 +6,7 @@
 
 void Equipo::degradar() {
     estado -= 2;
-    tiempo_inavtivo ++;
+    tiempo_inactivo ++;
 
 }
 
@@ -24,22 +24,22 @@ void Equipo::resolverIncidencia() {
 }
 
 double Equipo::calcularPrioridad() {
+    int incidenciasActivas = getIncidenciaActivas();
     double prioridad =
        (criticidad * 0.5) +
-       (incidenciaActivas() * 0.3) +
-       (tiempo_inavtivo * 0.2);
+       (incidenciasActivas * 0.3) +
+       (tiempo_inactivo * 0.2);
 
     return prioridad;
 }
 
-void Equipo::aplicarMantenimiento(Mantenimiento* mantenimiento) {
+void Equipo::aplicarMantenimiento(Mantenimiento* m) {
+    m->aplicar(*this);
 }
 
-string Equipo::getId() {
-}
 
-void Equipo::setTiempoInavtivo(int tiempo_inavtivo) {
-    this->tiempo_inavtivo = tiempo_inavtivo;
+void Equipo::setTiempoInactivo(int tiempo_inavtivo) {
+    this->tiempo_inactivo = tiempo_inavtivo;
 }
 
 void Equipo::setEstado(double estado) {
@@ -55,9 +55,18 @@ double Equipo::getEstado() {
 }
 
 int Equipo::getTiempoInavtivo() {
-    return tiempo_inavtivo;
+    return tiempo_inactivo;
 }
 
-int Equipo::incidenciaActivas() {
-    return incidenciaActivas();
+int Equipo::getIncidenciaActivas() {
+    int contador = 0;
+
+    for (int i = 0; i < Incidencias.size(); i++) {
+        if (Incidencias[i]->estaActiva()) {
+            contador++;
+        }
+    }
+
+    return contador;
 }
+
