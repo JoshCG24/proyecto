@@ -7,6 +7,9 @@
 
 void GestorIncidencias::generarIncidencia(Equipo *e, int dia) {
 
+    /*Los estados de los equipos como se manejaran*/
+    int probabilidad=0;
+    probabilidad =probabiblidad+e->getCriticidad();
 
 
 }
