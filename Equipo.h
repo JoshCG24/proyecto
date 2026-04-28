@@ -6,17 +6,16 @@
 #define PROYECTO_EQUIPO_H
 #include <string>
 #include <vector>
-
+#include "mantenimiento.h"
 #include "Incidencia.h"
 using namespace std;
 class Equipo {
 private:
-    string id;
-    string nombre;
-    int criticidad;
-    double estado;
-    int tiempo_inavtivo;
-    vector<Incidencia*> Incidencias ;
+    string id;//indentidad del equipo
+    int criticidad;//que tan importante
+    double estado;//que tan bien esta del 1-100
+    int tiempo_inavtivo;//cuanto tiempo lleva sin llevar
+    vector<Incidencia*> Incidencias ;//lista prblemas
 
 
     public:
@@ -24,8 +23,10 @@ private:
     void agregarIncidencia( Incidencia* incidencia);
     void resolverIncidencia();
     double calcularPrioridad();
-    void aplicarMantenimiento();
+    void aplicarMantenimiento(Mantenimiento* mantenimiento);
     string getId();
+    void setTiempoInavtivo(int tiempo_inavtivo);
+    void setEstado(double estado);
     int getCriticidad();
     double getEstado();
     int getTiempoInavtivo();
