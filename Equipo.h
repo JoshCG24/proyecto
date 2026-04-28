@@ -22,7 +22,6 @@ private:
     void degradar();
     void agregarIncidencia( Incidencia* incidencia);
     void resolverIncidencia();
-    double calcularPrioridad();
     void aplicarMantenimiento(Mantenimiento* mantenimiento);
     void setTiempoInactivo(int tiempo_inavtivo);
     void setEstado(double estado);

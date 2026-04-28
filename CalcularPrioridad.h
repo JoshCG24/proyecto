@@ -13,7 +13,7 @@ class CalcularPrioridad {
     double pesoIncidente =0.3;
     double pesoInactividad= 0.2;
 public:
-    double calcularPrioridad(Equipo e);
+    double calcularPrioridad(Equipo* e);
 };
 
 

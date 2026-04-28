@@ -23,15 +23,7 @@ void Equipo::resolverIncidencia() {
     }
 }
 
-double Equipo::calcularPrioridad() {
-    int incidenciasActivas = getIncidenciaActivas();
-    double prioridad =
-       (criticidad * 0.5) +
-       (incidenciasActivas * 0.3) +
-       (tiempo_inactivo * 0.2);
 
-    return prioridad;
-}
 
 void Equipo::aplicarMantenimiento(Mantenimiento* m) {
     m->aplicar(*this);

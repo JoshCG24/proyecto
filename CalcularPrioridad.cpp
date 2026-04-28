@@ -4,5 +4,13 @@
 
 #include "CalcularPrioridad.h"
 
-double CalcularPrioridad::calcularPrioridad(Equipo e) {
+double CalcularPrioridad::calcularPrioridad(Equipo* e) {
+    int incidenciasActivas = e->getIncidenciaActivas();
+
+    double prioridad =
+        (e->getCriticidad() * 0.5) +
+        (incidenciasActivas * 0.3) +
+        (e->getTiempoInavtivo() * 0.2);
+
+    return prioridad;
 }
