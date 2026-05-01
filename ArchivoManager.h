@@ -13,6 +13,7 @@ using namespace std;
 
 
 class ArchivoManager {
+    public:
     vector<Equipo*> cargarEquipos(string ruta);
     void guardarReporteDiario(ReporteDiario* reporte);
     void guardarReporteFinal(string ruta,string resumen);

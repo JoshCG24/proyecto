@@ -18,6 +18,7 @@ private:
     string estadoGeneral;
 
 public:
+    ReporteDiario(int id, vector<Equipo*> atendidos, int pendientes, double riesgo, string estado);
     string generarTexto();
 
 };

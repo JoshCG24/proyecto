@@ -4,6 +4,14 @@
 
 #include "ReporteDiario.h"
 
+ReporteDiario::ReporteDiario(int id, vector<Equipo *> atendidos, int pendientes, double riesgo, string estado) {
+    this->id = id;
+    this->equiposAtendidos = atendidos;
+    this->equiposPendientes.resize(pendientes); // Solo para guardar el tamaño
+    this->riesgoTotal = riesgo;
+    this->estadoGeneral = estado;
+}
+
 string ReporteDiario::generarTexto() {
     string reporte = "";
 
