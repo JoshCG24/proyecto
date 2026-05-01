@@ -1,6 +1,7 @@
 #include "Simulador.h"
 #include "MantenimientoCorrectivo.h" // Necesario para aplicar reparaciones
 #include "ReporteDiario.h"
+#include "MantenimientoPreventivo.h"
 #include <iostream>
 
 Simulador::Simulador(vector<Equipo*>& equiposIniciales, CalcularPrioridad* cp, OrdenadorEquipos* ord, 
@@ -31,9 +32,11 @@ void Simulador::ejecutarDia(int dia) {
     gestorIncidencias->actualizarIncidencias(equipos, dia);
 
 
-    for(auto e : equipos) { e->calcularPrioridad(); } 
-    ordenador->ordenarPorPrioridad(equipos);
-
+    for (Equipo* e : equipos) {
+        double p = calculadorPrioridad->calcularPrioridad(e);
+        e->setPrioridad(p);
+    }
+    ordenador->ordenarPorPrioridad(equipos); // ordena los equipos justo depsues de establecer la prioridad
 
     vector<Equipo*> seleccionados = selectorTecnicos->EquipoTecnicos(equipos);
 
@@ -48,18 +51,28 @@ void Simulador::ejecutarDia(int dia) {
 }
 
 void Simulador::degradarEquipos() {
-    for (auto e : equipos) { e->degradar(); }
+    for (Equipo* e : equipos) {
+        e->degradar();
+    }
 }
 
 void Simulador::ejecutarMantenimientos(const vector<Equipo*>& seleccionados) {
+    for (Equipo* e : seleccionados) {
+        Mantenimiento* m;
 
-    MantenimientoCorrectivo mc(1, 30.0);
+        if (e->getIncidenciaActivas() > 0) {
+            m = new MantenimientoCorrectivo();
+        } else {
+            m = new MantenimientoPreventivo();
+        }
 
-    for (auto e : seleccionados) {
-        e->aplicarMantenimiento(&mc);
+        e->aplicarMantenimiento(m);
         e->setTiempoInactivo(0);
+
+        delete m;
     }
 }
+
 
 void Simulador::actualizarSistema() {
 
@@ -76,5 +89,4 @@ void Simulador::generarReporte(int dia, const vector<Equipo*>& seleccionados) {
 }
 
 Simulador::~Simulador() {
-    // Aquí deberías limpiar la memoria de los punteros si el Simulador es dueño de ellos
 }

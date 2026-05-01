@@ -10,7 +10,7 @@ double CalcularPrioridad::calcularPrioridad(Equipo* e) {
     double prioridad =
         (e->getCriticidad() * 0.5) +
         (incidenciasActivas * 0.3) +
-        (e->getTiempoInavtivo() * 0.2);
+        (e->getTiempoInactivo() * 0.2);
 
     return prioridad;
 }

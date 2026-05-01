@@ -9,10 +9,9 @@
 using namespace std;
 
 class GestorIncidencias {
-    public:
-    void actualizarIncidencias(vector<Equipo*> equipos,int dia);
-    void generarIncidencia(Equipo* e,int dia);
+public:
+    void actualizarIncidencias(vector<Equipo*> equipos, int dia);
+    void generarIncidencia(Equipo* e, int dia);
 };
-
 
 #endif //PROYECTO_GESTORINCIDENCIAS_H

@@ -11,7 +11,7 @@ double CalculadorRiesgo::calcularRiesgoGlobal(vector<Equipo *> equipos) {
     double sumaPrioridades = 0.0;
     for (int i = 0; i < equipos.size(); i++) {
 
-        sumaPrioridades += equipos[i]->calcularPrioridad();
+        sumaPrioridades += equipos[i]->getPrioridad();
     }
 
     return sumaPrioridades / equipos.size();

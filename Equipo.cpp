@@ -3,6 +3,7 @@
 //
 
 #include "Equipo.h"
+#include "Mantenimiento.h"
 
 Equipo::Equipo(string id, int criticidad, double estado) {
     this->id = id;
@@ -11,27 +12,18 @@ Equipo::Equipo(string id, int criticidad, double estado) {
     this->estado = estado;
 
 }
-double Equipo::calcularPrioridad() {
-    // Esta es la fórmula base: Criticidad + (100 - Estado) + (Incidencias * factor)[cite: 1]
-    double prioridad = (double)criticidad + (100.0 - estado) + (Incidencias.size() * 5.0);
 
-
-    prioridad += (tiempo_inactivo * 2.0);
-
-    return prioridad;
-}
 
 void Equipo::degradar() {
     if (estado > 0) {
-        estado -= 2;
+        estado -= 2.0;
+        if (estado < 0) {
+            estado = 0;
+        }
+        tiempo_inactivo++;
     }
-
-    if (estado < 0) {
-        estado = 0;
-    }
-
-    tiempo_inactivo ++;
 }
+
 void Equipo::agregarIncidencia( Incidencia* incidencia) {
     Incidencias.push_back(incidencia);
 
@@ -52,31 +44,38 @@ void Equipo::aplicarMantenimiento(Mantenimiento* m) {
 }
 
 
-void Equipo::setTiempoInactivo(int tiempo_inavtivo) {
-    this->tiempo_inactivo = tiempo_inavtivo;
+void Equipo::setTiempoInactivo(int tiempo_inactivo) {
+    this->tiempo_inactivo = tiempo_inactivo;
 }
 
 void Equipo::setEstado(double estado) {
     this->estado = estado;
 }
 
-int Equipo::getCriticidad() {
+int Equipo::getCriticidad()const  {
     return criticidad;
 }
 
-double Equipo::getEstado() {
+double Equipo::getEstado() const {
     return estado;
 }
 
-string Equipo::getId() {
+string Equipo::getId() const {
     return id;
 }
 
-int Equipo::getTiempoInavtivo() {
+int Equipo::getTiempoInactivo()const  {
     return tiempo_inactivo;
 }
+void Equipo::setPrioridad(double p) {
+    prioridad = p;
+}
 
-int Equipo::getIncidenciaActivas() {
+double Equipo::getPrioridad() const {
+    return prioridad;
+}
+
+int Equipo::getIncidenciaActivas()  {
     int contador = 0;
 
     for (int i = 0; i < Incidencias.size(); i++) {
@@ -87,4 +86,11 @@ int Equipo::getIncidenciaActivas() {
 
     return contador;
 }
+Equipo::~Equipo() {
+    for (Incidencia* inc : Incidencias) {
+        delete inc;
+    }
+    Incidencias.clear();
+}
+
 

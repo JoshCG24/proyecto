@@ -46,8 +46,8 @@ void OrdenadorEquipos::merge(vector<Equipo *> &equipos, int inicio, int medio, i
     while (i < izquierda.size() && j < derecha.size()) {
 
 
-        double prioIzquierda = calculador.calcularPrioridad( izquierda[i]);
-        double prioDerecha = calculador.calcularPrioridad(derecha[j]);
+        double prioIzquierda = izquierda[i]->getPrioridad();
+        double prioDerecha = derecha[j]->getPrioridad();
 
         if (prioIzquierda >= prioDerecha) {
             equipos[k] = izquierda[i];

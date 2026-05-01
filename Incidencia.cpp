@@ -9,20 +9,21 @@ Incidencia::Incidencia(string id, string descripcion, int dia, int severidad) {
      this->descripcion = descripcion;
      this->diaAparicion = dia;
      this->severidad = severidad;
+     this->activa=true;
 }
 
 void Incidencia::resolver() {
      activa=false;
 }
 
-bool Incidencia::estaActiva() {
-     activa=true;
+bool Incidencia::estaActiva() const{
+     return activa;
 }
 
-int Incidencia::getSeveridad() {
+int Incidencia::getSeveridad()const {
      return severidad;
 }
 
-int Incidencia::getDiaAparicion() {
+int Incidencia::getDiaAparicion() const{
      return diaAparicion;
 }
