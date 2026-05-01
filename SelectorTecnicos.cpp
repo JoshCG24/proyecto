@@ -3,6 +3,13 @@
 //
 
 #include "SelectorTecnicos.h"
+vector<Equipo*> SelectorTecnicos::EquipoTecnicos(vector<Equipo*> equipos) {
+    vector<Equipo*> seleccionados;
 
-vector<Equipo *> SelectorTecnicos::EquipoTecnicos(vector<Equipo *> equipos) {
+
+    for (int i = 0; i < 3 && i < equipos.size(); i++) {
+        seleccionados.push_back(equipos[i]);
+    }
+
+    return seleccionados;
 }

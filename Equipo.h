@@ -21,6 +21,7 @@ private:
 
     public:
     Equipo(string id, int criticidad, double estado);
+    double calcularPrioridad();
     void degradar();
     void agregarIncidencia( Incidencia* incidencia);
     void resolverIncidencia();

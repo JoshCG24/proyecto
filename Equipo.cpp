@@ -11,6 +11,15 @@ Equipo::Equipo(string id, int criticidad, double estado) {
     this->estado = estado;
 
 }
+double Equipo::calcularPrioridad() {
+    // Esta es la fórmula base: Criticidad + (100 - Estado) + (Incidencias * factor)[cite: 1]
+    double prioridad = (double)criticidad + (100.0 - estado) + (Incidencias.size() * 5.0);
+
+
+    prioridad += (tiempo_inactivo * 2.0);
+
+    return prioridad;
+}
 
 void Equipo::degradar() {
     if (estado > 0) {
