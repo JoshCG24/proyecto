@@ -28,7 +28,7 @@ private:
     int diasSimulacion = 30;
     int diaActual = 1;
 
-    // Componentes del sistema
+
     CalcularPrioridad* calculadorPrioridad;
     OrdenadorEquipos* ordenador;
     BuscarEquipos* buscador;
@@ -50,12 +50,12 @@ public:
 
     ~Simulador();
 
-    // Control principal
+
     void simular();
     void ejecutarDia(int dia);
 
 private:
-    // Flujo interno del día
+
     void degradarEquipos();
     void actualizarIncidencias();
     void calcularPrioridades();
