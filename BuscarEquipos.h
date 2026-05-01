@@ -13,4 +13,5 @@ class BuscarEquipos {
 };
 
 
+
 #endif //PROYECTO_BUSCAREQUIPOS_H

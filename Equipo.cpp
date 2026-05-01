@@ -51,6 +51,10 @@ double Equipo::getEstado() {
     return estado;
 }
 
+string Equipo::getId() {
+    return id;
+}
+
 int Equipo::getTiempoInavtivo() {
     return tiempo_inactivo;
 }

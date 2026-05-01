@@ -27,6 +27,7 @@ private:
     void setEstado(double estado);
     int getCriticidad();
     double getEstado();
+    string getId();
     int getTiempoInavtivo();
     int getIncidenciaActivas();
 
