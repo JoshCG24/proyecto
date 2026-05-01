@@ -5,9 +5,11 @@
 #ifndef PROYECTO_ARCHIVOMANAGER_H
 #define PROYECTO_ARCHIVOMANAGER_H
 #include <vector>
-
+#include <fstream>
+using namespace std;
 #include "Equipo.h"
 #include "ReporteDiario.h"
+#include <iostream>
 
 
 class ArchivoManager {

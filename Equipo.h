@@ -9,6 +9,7 @@
 #include "mantenimiento.h"
 #include "Incidencia.h"
 using namespace std;
+class Mantenimiento;
 class Equipo {
 private:
     string id;//indentidad del equipo
@@ -19,6 +20,7 @@ private:
 
 
     public:
+    Equipo(string id, int criticidad, double estado);
     void degradar();
     void agregarIncidencia( Incidencia* incidencia);
     void resolverIncidencia();

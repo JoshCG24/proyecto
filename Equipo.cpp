@@ -4,6 +4,14 @@
 
 #include "Equipo.h"
 
+Equipo::Equipo(string id, int criticidad, double estado) {
+    this->id = id;
+
+    this->criticidad = criticidad;
+    this->estado = estado;
+
+}
+
 void Equipo::degradar() {
     if (estado > 0) {
         estado -= 2;

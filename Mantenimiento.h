@@ -6,6 +6,7 @@
 #define PROYECTO_MANTENIMIENTO_H
 
 #include "Equipo.h"
+class Equipo;
 class Mantenimiento {
     public:
     virtual void aplicar(Equipo& e) =0;
