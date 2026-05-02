@@ -7,7 +7,7 @@ vector<Equipo*> ArchivoManager::cargarEquipos(const string& ruta) {
     ifstream archivo(ruta);
 
     if (!archivo.is_open()) {
-        throw ArchivoInvalidoException();  // antes era cout
+        throw ArchivoInvalidoException();
     }
 
     string id;
