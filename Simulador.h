@@ -35,7 +35,7 @@ public:
               SelectorTecnicos* st,
               CalculadorRiesgo* cr,
               ArchivoManager* am);
-
+    Mantenimiento* estrategiaActual;
     ~Simulador();
     void simular();
 
@@ -46,6 +46,8 @@ private:
     void actualizarSistema();
     void limpiarArchivosManualmente();
     void generarReporte(int dia, const vector<Equipo*>& seleccionados);
+    void setEstrategiaMantenimiento(Mantenimiento* m);
+
 };
 
 #endif

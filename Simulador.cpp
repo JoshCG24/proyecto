@@ -15,6 +15,7 @@ Simulador::Simulador(vector<Equipo*>& equiposIniciales, CalcularPrioridad* cp, O
     selectorTecnicos = st;
     calculadorRiesgo = cr;
     archivoManager = am;
+
 }
 
 void Simulador::simular() {
@@ -60,22 +61,28 @@ void Simulador::degradarEquipos() {
 
 void Simulador::ejecutarMantenimientos(const vector<Equipo*>& seleccionados) {
     for (Equipo* e : seleccionados) {
-        Mantenimiento* m;
-
+        // STRATEGY: Elige estrategia según estado del equipo
         if (e->getIncidenciaActivas() > 0) {
-            m = new MantenimientoCorrectivo();
-            // --- NUEVO: Cerramos las incidencias del equipo ---
-            e->resolverIncidencia();
+            setEstrategiaMantenimiento(new MantenimientoCorrectivo());
         } else {
-            m = new MantenimientoPreventivo();
+            setEstrategiaMantenimiento(new MantenimientoPreventivo());
         }
 
-        e->aplicarMantenimiento(m);
-        e->setTiempoInactivo(0); // Reiniciamos su tiempo de espera
+        e->aplicarMantenimiento(estrategiaActual);
+        e->setTiempoInactivo(0);
 
-        delete m;
+        // DOWNCASTING: Acceder a comportamiento exclusivo de Correctivo
+        MantenimientoCorrectivo* mc = dynamic_cast<MantenimientoCorrectivo*>(estrategiaActual);
+        if (mc != nullptr) {
+            cout << "  [Correctivo] " << e->getId() << " - Incidencias resueltas, estado al 100%" << endl;
+        } else {
+            cout << "  [Preventivo] " << e->getId() << " - Estado mejorado +25" << endl;
+        }
+
+        delete estrategiaActual;
     }
 }
+
 
 
 void Simulador::actualizarSistema() {
@@ -101,9 +108,14 @@ void Simulador::generarReporte(int dia, const vector<Equipo*>& seleccionados) {
     delete rd;
 }
 
+void Simulador::setEstrategiaMantenimiento(Mantenimiento* m) {
+    estrategiaActual = m;
+}
+
+
 Simulador::~Simulador() {
 }
-void Simulador::limpiarArchivosManualmente() {
+void Simulador::limpiarArchivosManualmente() { // evita que la informacion no se sobreescriba en el archivo
 
     std::ofstream archivo("simulacion_diaria.txt", std::ios::trunc);
 
