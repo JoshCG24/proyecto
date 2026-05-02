@@ -1,5 +1,5 @@
 #include "Simulador.h"
-#include "MantenimientoCorrectivo.h" // Necesario para aplicar reparaciones
+#include "MantenimientoCorrectivo.h"
 #include "ReporteDiario.h"
 #include "MantenimientoPreventivo.h"
 #include <iostream>

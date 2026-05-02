@@ -18,9 +18,9 @@ int main() {
     srand(time(nullptr));
 
     cout << "===== SISTEMA DE PLANIFICACION DE MANTENIMIENTO =====" << endl;
-    cout << "Cargando datos iniciales..." << endl;
+    cout << "Cargando datos iniciales desde archivos..." << endl;
 
-    // Crear módulos
+
     ArchivoManager archivoManager;
     CalcularPrioridad calcularPrioridad;
     OrdenadorEquipos ordenador;
@@ -29,36 +29,38 @@ int main() {
     GestorIncidencias gestor;
     CalculadorRiesgo calculador;
 
-    vector<Equipo*> equipos;
 
+    vector<Equipo*> equipos = archivoManager.cargarEquipos("equipos.txt");
 
+    if (equipos.empty()) {
+        cout << "Advertencia: No se cargaron equipos desde archivo. "
+             << "Generando 100 equipos por defecto..." << endl;
+        for (int i = 0; i < 100; i++) {
+            int num = i + 1;
+            string id;
+            if (num < 10)       id = "EQ-00" + to_string(num);
+            else if (num < 100) id = "EQ-0"  + to_string(num);
+            else                id = "EQ-"   + to_string(num);
 
-    for (int i = 0; i < 100; i++) {
-        string id;
-        int num = i + 1;
-
-        if (num < 10) {
-            id = "EQ-00" + to_string(num);
-        } else if (num < 100) {
-            id = "EQ-0" + to_string(num);
-        } else {
-            id = "EQ-" + to_string(num);
+            int criticidad = (rand() % 10) + 1;
+            double estado  = (rand() % 41) + 60;
+            equipos.push_back(new Equipo(id, criticidad, estado));
         }
-
-        int criticidad = (rand() % 10) + 1;
-        double estado = (rand() % 41) + 60;
-
-        equipos.push_back(new Equipo(id, criticidad, estado));
     }
 
-    // Ordena por ID para búsqueda binaria
+
     ordenador.ordenarPorId(equipos);
 
-    cout << "Equipos cargados: " << equipos.size() << endl;
+
+    int incidenciasCargadas = archivoManager.cargarIncidencias(
+        "incidencias.txt", equipos, &buscador, &ordenador);
+
+    cout << "Equipos cargados: "     << equipos.size()     << endl;
+    cout << "Incidencias cargadas: " << incidenciasCargadas << endl;
     cout << "Iniciando simulacion de 30 dias..." << endl;
     cout << "========================================" << endl;
 
-    // Cre y ejecutar simulador
+
     Simulador simulador(equipos, &calcularPrioridad, &ordenador, &buscador,
                         &gestor, &selector, &calculador, &archivoManager);
 
@@ -67,17 +69,17 @@ int main() {
     cout << "========================================" << endl;
     cout << "Simulacion completada." << endl;
     cout << "Reporte diario guardado en: simulacion_diaria.txt" << endl;
-    cout << "Reporte final guardado en: resultado_final.txt" << endl;
+    cout << "Reporte final guardado en: resultado_final.txt"   << endl;
 
     // Liberar memoria
     for (Equipo* e : equipos) {
         delete e;
     }
+    equipos.clear();
+
     ArchivoManager gestorArchivos;
     gestorArchivos.imprimirArchivo("resultado_final.txt");
-    gestorArchivos.imprimirArchivo("simulacion_diaria.txt");
-
-    equipos.clear();
+    // No imprime simulacion_diaria.txt completo (30 días) para no saturar la consola.
 
     return 0;
 }
