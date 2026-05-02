@@ -82,7 +82,7 @@ void Simulador::generarReporte(int dia, const vector<Equipo*>& seleccionados) {
     double riesgo = calculadorRiesgo->calcularRiesgoGlobal(equipos);
     string estado = calculadorRiesgo->clasificarRiesgoGlobal(equipos);
     
-    // Suponiendo que tu ReporteDiario tiene un constructor que recibe estos datos
+
     ReporteDiario* rd = new ReporteDiario(dia, seleccionados, (equipos.size() - seleccionados.size()), riesgo, estado);
     archivoManager->guardarReporteDiario(rd);
     delete rd;
