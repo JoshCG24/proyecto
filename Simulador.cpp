@@ -76,6 +76,9 @@ void Simulador::ejecutarMantenimientos(const vector<Equipo*>& seleccionados) {
 }
 
 
+void Simulador::actualizarSistema() {
+
+}
 
 void Simulador::generarReporte(int dia, const vector<Equipo*>& seleccionados) {
     double riesgo = calculadorRiesgo->calcularRiesgoGlobal(equipos);
