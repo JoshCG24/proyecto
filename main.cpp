@@ -14,7 +14,7 @@
 using namespace std;
 
 int main() {
-    // Semilla para números aleatorios
+
     srand(time(nullptr));
 
     cout << "===== SISTEMA DE PLANIFICACION DE MANTENIMIENTO =====" << endl;
