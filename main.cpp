@@ -73,6 +73,7 @@ int main() {
     for (Equipo* e : equipos) {
         delete e;
     }
+
     equipos.clear();
 
     return 0;

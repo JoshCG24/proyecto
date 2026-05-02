@@ -51,3 +51,20 @@ void ArchivoManager::guardarReporteFinal(string ruta, string resumen) {
         archivo.close();
     }
 }
+
+void ArchivoManager::mostrarReporte(const string &nombreArchivo) {
+    ifstream archivo(nombreArchivo);
+    if (!archivo.is_open()) {
+       cerr << "Error: No se pudo abrir el reporte " << nombreArchivo << endl;
+        return;
+    }
+
+    cout << "\n--- CONTENIDO DEL REPORTE: " << nombreArchivo << " ---" << endl;
+  string linea;
+    while (getline(archivo, linea)) {
+        cout << linea << endl;
+    }
+    cout << "--- FIN DEL REPORTE ---\n" << endl;
+
+    archivo.close();
+}
