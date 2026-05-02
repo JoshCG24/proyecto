@@ -4,8 +4,8 @@
 #include "MantenimientoPreventivo.h"
 #include <iostream>
 
-Simulador::Simulador(vector<Equipo*>& equiposIniciales, CalcularPrioridad* cp, OrdenadorEquipos* ord, 
-                     BuscarEquipos* bus, GestorIncidencias* gi, SelectorTecnicos* st, 
+Simulador::Simulador(vector<Equipo*>& equiposIniciales, CalcularPrioridad* cp, OrdenadorEquipos* ord,
+                     BuscarEquipos* bus, GestorIncidencias* gi, SelectorTecnicos* st,
                      CalculadorRiesgo* cr, ArchivoManager* am) {
     equipos = equiposIniciales;
     calculadorPrioridad = cp;
@@ -15,6 +15,8 @@ Simulador::Simulador(vector<Equipo*>& equiposIniciales, CalcularPrioridad* cp, O
     selectorTecnicos = st;
     calculadorRiesgo = cr;
     archivoManager = am;
+    equiposOrdenadosPorId = equipos;
+    ordenador->ordenarPorId(equiposOrdenadosPorId);
 
 }
 
@@ -61,25 +63,28 @@ void Simulador::degradarEquipos() {
 
 void Simulador::ejecutarMantenimientos(const vector<Equipo*>& seleccionados) {
     for (Equipo* e : seleccionados) {
-        // STRATEGY: Elige estrategia según estado del equipo
+        Mantenimiento* nuevaEstrategia = nullptr;
         if (e->getIncidenciaActivas() > 0) {
-            setEstrategiaMantenimiento(new MantenimientoCorrectivo());
+            nuevaEstrategia = new MantenimientoCorrectivo();
         } else {
-            setEstrategiaMantenimiento(new MantenimientoPreventivo());
+            nuevaEstrategia = new MantenimientoPreventivo();
         }
+        setEstrategiaMantenimiento(nuevaEstrategia);
 
         e->aplicarMantenimiento(estrategiaActual);
         e->setTiempoInactivo(0);
-
-        // DOWNCASTING: Acceder a comportamiento exclusivo de Correctivo
         MantenimientoCorrectivo* mc = dynamic_cast<MantenimientoCorrectivo*>(estrategiaActual);
         if (mc != nullptr) {
-            cout << "  [Correctivo] " << e->getId() << " - Incidencias resueltas, estado al 100%" << endl;
+            cout << "  [Correctivo] " << e->getId()
+                      << " - Incidencias resueltas, estado al 100%" << endl;
         } else {
-            cout << "  [Preventivo] " << e->getId() << " - Estado mejorado +25" << endl;
+            cout << "  [Preventivo] " << e->getId()
+                      << " - Estado mejorado +25" << endl;
         }
 
         delete estrategiaActual;
+        estrategiaActual = nullptr;
+        totalMantenimientos++;
     }
 }
 
@@ -87,23 +92,34 @@ void Simulador::ejecutarMantenimientos(const vector<Equipo*>& seleccionados) {
 
 void Simulador::actualizarSistema() {
 
+    equiposOrdenadosPorId = equipos;
+    ordenador->ordenarPorId(equiposOrdenadosPorId);
+
+
+    Equipo* encontrado = buscador->buscarBinario(equiposOrdenadosPorId, "EQ-001");
+    if (encontrado != nullptr) {
+        (void)encontrado;
+    }
 }
 
 void Simulador::generarReporte(int dia, const vector<Equipo*>& seleccionados) {
     double riesgo = calculadorRiesgo->calcularRiesgoGlobal(equipos);
     string estado = calculadorRiesgo->clasificarRiesgoGlobal(equipos);
+    sumaRiesgos += riesgo;
 
 
-    int backlogReal = 0;
-    for (const Equipo* equipo : equipos) {
-
-        if (equipo->tieneIncidenciaPendiente()) {
-            backlogReal++;
+    vector<Equipo*> pendientes;
+    for (Equipo* e : equipos) {
+        if (e->tieneIncidenciaPendiente()) {
+            bool atendido = false;
+            for (Equipo* s : seleccionados) {
+                if (s->getId() == e->getId()) { atendido = true; break; }
+            }
+            if (!atendido) pendientes.push_back(e);
         }
     }
 
-
-    ReporteDiario* rd = new ReporteDiario(dia, seleccionados, backlogReal, riesgo, estado);
+    ReporteDiario* rd = new ReporteDiario(dia, seleccionados, pendientes, riesgo, estado);
     archivoManager->guardarReporteDiario(rd);
     delete rd;
 }

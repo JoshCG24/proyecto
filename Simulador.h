@@ -16,8 +16,10 @@ using namespace std;
 class Simulador {
 private:
     vector<Equipo*> equipos;
+    vector<Equipo*> equiposOrdenadosPorId;
     int diasSimulacion = 30;
-    int backlogActual = 0;
+    int totalMantenimientos = 0;
+    double sumaRiesgos = 0.0;
     CalcularPrioridad* calculadorPrioridad;
     OrdenadorEquipos* ordenador;
     BuscarEquipos* buscador;
@@ -25,6 +27,7 @@ private:
     SelectorTecnicos* selectorTecnicos;
     CalculadorRiesgo* calculadorRiesgo;
     ArchivoManager* archivoManager;
+    Mantenimiento* estrategiaActual;
 
 public:
     Simulador(vector<Equipo*>& equiposIniciales,
@@ -35,7 +38,8 @@ public:
               SelectorTecnicos* st,
               CalculadorRiesgo* cr,
               ArchivoManager* am);
-    Mantenimiento* estrategiaActual;
+
+    void setEstrategiaMantenimiento(Mantenimiento* m);
     ~Simulador();
     void simular();
 
@@ -46,7 +50,7 @@ private:
     void actualizarSistema();
     void limpiarArchivosManualmente();
     void generarReporte(int dia, const vector<Equipo*>& seleccionados);
-    void setEstrategiaMantenimiento(Mantenimiento* m);
+
 
 };
 

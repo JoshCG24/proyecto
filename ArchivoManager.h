@@ -15,36 +15,43 @@ using namespace std;
 
 #include <exception>
 #include <string>
-
-class ArchivoInvalidoException : public std::exception {
+class ArchivoInvalidoException : public exception {
+private:
+    string mensaje;
 public:
-    const char* what() const noexcept override {
-        return "Error: No se pudo abrir el archivo.";
-    }
+    explicit ArchivoInvalidoException(const string& ruta = "")
+        : mensaje("Error: No se pudo abrir el archivo" + (ruta.empty() ? "." : ": " + ruta)) {}
+    const char* what() const noexcept override { return mensaje.c_str(); }
 };
 
-class FormatoInvalidoException : public std::exception {
+class FormatoInvalidoException : public exception {
+private:
+    string mensaje;
 public:
-    const char* what() const noexcept override {
-        return "Error: Formato de archivo invalido.";
-    }
+    explicit FormatoInvalidoException(const string& detalle = "")
+        : mensaje("Error: Formato de archivo invalido" + (detalle.empty() ? "." : ": " + detalle)) {}
+    const char* what() const noexcept override { return mensaje.c_str(); }
 };
 
-class OperacionInconsistenteException : public std::exception {
+class OperacionInconsistenteException : public exception {
+private:
+    string mensaje;
 public:
-    const char* what() const noexcept override {
-        return "Error: Operacion inconsistente.";
-    }
+    explicit OperacionInconsistenteException(const string& detalle = "")
+        : mensaje("Error: Operacion inconsistente" + (detalle.empty() ? "." : ": " + detalle)) {}
+    const char* what() const noexcept override { return mensaje.c_str(); }
 };
 
 class ArchivoManager {
-    public:
+public:
     vector<Equipo*> cargarEquipos(const string& ruta);
-    int cargarIncidencias(const string& ruta, vector<Equipo*>& equipos,BuscarEquipos* buscador, OrdenadorEquipos* ordenador);
+    int cargarIncidencias(const string& ruta, vector<Equipo*>& equipos,
+                          BuscarEquipos* buscador, OrdenadorEquipos* ordenador);
     void guardarReporteDiario(ReporteDiario* reporte);
-    void guardarReporteFinal(string ruta,string resumen);
+    void guardarReporteFinal(const string& ruta, const string& resumen);
     void imprimirArchivo(const string& ruta);
 };
+
 
 
 #endif //PROYECTO_ARCHIVOMANAGER_H

@@ -1,6 +1,7 @@
 //
 // Created by joshu on 4/24/2026.
 //
+#include <sstream>
 #include "ArchivoManager.h"
 vector<Equipo*> ArchivoManager::cargarEquipos(const string& ruta) {
     vector<Equipo*> lista;
@@ -29,6 +30,49 @@ vector<Equipo*> ArchivoManager::cargarEquipos(const string& ruta) {
     return lista;
 }
 
+int ArchivoManager::cargarIncidencias(const string& ruta, vector<Equipo*>& equipos,BuscarEquipos* buscador, OrdenadorEquipos* ordenador) {
+    ifstream archivo(ruta);
+    if (!archivo.is_open()) {
+        throw ArchivoInvalidoException(ruta);
+    }
+
+    // Asegurar que equipos estén ordenados por ID para búsqueda binaria
+    ordenador->ordenarPorId(equipos);
+
+    string linea;
+    int numLinea = 0;
+    int cargadas = 0;
+
+    while (getline(archivo, linea)) {
+        numLinea++;
+        if (linea.empty() || linea[0] == '#') continue;
+
+        istringstream ss(linea);
+        string incId, equipoId;
+        int severidad, dia;
+
+        if (!(ss >> incId >> equipoId >> severidad >> dia)) {
+            throw FormatoInvalidoException("linea " + to_string(numLinea));
+        }
+        if (severidad < 1 || severidad > 3) {
+            throw FormatoInvalidoException("severidad invalida en linea " + to_string(numLinea));
+        }
+
+        // Usar búsqueda binaria para encontrar el equipo
+        Equipo* equipo = buscador->buscarBinario(equipos, equipoId);
+        if (equipo == nullptr) {
+            throw OperacionInconsistenteException("equipo " + equipoId + " no encontrado (linea " + to_string(numLinea) + ")");
+        }
+
+        string desc = (severidad == 1) ? "Desgaste menor" :
+                           (severidad == 2) ? "Falla parcial" : "Falla critica";
+        equipo->agregarIncidencia(new Incidencia(incId, desc, dia, severidad));
+        cargadas++;
+    }
+
+    archivo.close();
+    return cargadas;
+}
 void ArchivoManager::guardarReporteDiario(ReporteDiario* reporte) {
     if (reporte == nullptr) {
         throw OperacionInconsistenteException();
@@ -43,14 +87,12 @@ void ArchivoManager::guardarReporteDiario(ReporteDiario* reporte) {
     archivo.close();
 }
 
-void ArchivoManager::guardarReporteFinal(string ruta, string resumen) {
+void ArchivoManager::guardarReporteFinal(const string& ruta, const string& resumen) {
     ofstream archivo(ruta);
     if (!archivo.is_open()) {
-        throw ArchivoInvalidoException();
+        throw ArchivoInvalidoException(ruta);
     }
-
-    archivo << "===== RESUMEN FINAL DE SIMULACION =====" << endl;
-    archivo << resumen << endl;
+    archivo << resumen;
     archivo.close();
 }
 void ArchivoManager::imprimirArchivo(const string& ruta) {

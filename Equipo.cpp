@@ -75,7 +75,7 @@ double Equipo::getPrioridad() const {
     return prioridad;
 }
 
-int Equipo::getIncidenciaActivas()  {
+int Equipo::getIncidenciaActivas() const {
     int contador = 0;
 
     for (int i = 0; i < Incidencias.size(); i++) {
@@ -88,7 +88,7 @@ int Equipo::getIncidenciaActivas()  {
 }
 bool Equipo::tieneIncidenciaPendiente() const {
 
-    return const_cast<Equipo*>(this)->getIncidenciaActivas() > 0;
+    return getIncidenciaActivas() > 0;
 }
 
 Equipo::~Equipo() {

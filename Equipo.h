@@ -36,7 +36,7 @@ private:
     double getEstado() const;
     string getId() const;
     int getTiempoInactivo() const;
-    int getIncidenciaActivas();
+    int getIncidenciaActivas() const ;
     bool tieneIncidenciaPendiente() const;
     double getPrioridad() const;
     ~Equipo();

@@ -13,14 +13,14 @@ class ReporteDiario {
 private:
     int id;
     vector<Equipo*> equiposAtendidos;
-    int  equiposPendientes;
+    vector<Equipo*> equiposPendientesLista; // lista completa de pendientes
+    int equiposPendientesConteo;
     double riesgoTotal;
     string estadoGeneral;
 
 public:
-    ReporteDiario(int id, vector<Equipo*> atendidos, int pendientes, double riesgo, string estado);
+    ReporteDiario(int id,vector<Equipo*> atendidos,vector<Equipo*> pendientesLista,double riesgo,string estado);
     string generarTexto();
-
 };
 
 

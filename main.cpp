@@ -21,7 +21,7 @@ int main() {
         cout << "===== SISTEMA DE PLANIFICACION DE MANTENIMIENTO =====" << endl;
         cout << "Cargando datos iniciales..." << endl;
 
-        // Crear módulos
+
         ArchivoManager archivoManager;
         CalcularPrioridad calcularPrioridad;
         OrdenadorEquipos ordenador;
@@ -32,7 +32,7 @@ int main() {
 
         vector<Equipo*> equipos;
 
-        // 1. Crear los 100 equipos
+
         for (int i = 0; i < 100; i++) {
             string id;
             int num = i + 1;
