@@ -26,7 +26,7 @@ void Simulador::simular() {
 
 void Simulador::ejecutarDia(int dia) {
     cout << "--- Iniciando Dia " << dia << " ---" << endl;
-    
+
 
     degradarEquipos();
     gestorIncidencias->actualizarIncidencias(equipos, dia);
@@ -81,9 +81,18 @@ void Simulador::actualizarSistema() {
 void Simulador::generarReporte(int dia, const vector<Equipo*>& seleccionados) {
     double riesgo = calculadorRiesgo->calcularRiesgoGlobal(equipos);
     string estado = calculadorRiesgo->clasificarRiesgoGlobal(equipos);
-    
 
-    ReporteDiario* rd = new ReporteDiario(dia, seleccionados, (equipos.size() - seleccionados.size()), riesgo, estado);
+    // 1. Contar cuántos equipos tienen incidencias reales pendientes
+    int backlogReal = 0;
+    for (const auto& equipo : equipos) {
+
+        if (equipo->tieneIncidenciaPendiente()) {
+            backlogReal++;
+        }
+    }
+
+    // 2. Usar el backlog real en el reporte
+    ReporteDiario* rd = new ReporteDiario(dia, seleccionados, backlogReal, riesgo, estado);
     archivoManager->guardarReporteDiario(rd);
     delete rd;
 }

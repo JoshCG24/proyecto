@@ -86,6 +86,11 @@ int Equipo::getIncidenciaActivas()  {
 
     return contador;
 }
+bool Equipo::tieneIncidenciaPendiente() const {
+
+    return const_cast<Equipo*>(this)->getIncidenciaActivas() > 0;
+}
+
 Equipo::~Equipo() {
     for (Incidencia* inc : Incidencias) {
         delete inc;
