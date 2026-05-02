@@ -7,7 +7,7 @@
 ReporteDiario::ReporteDiario(int id, vector<Equipo *> atendidos, int pendientes, double riesgo, string estado) {
     this->id = id;
     this->equiposAtendidos = atendidos;
-    this->equiposPendientes.resize(pendientes); // Solo para guardar el tamaño
+    this->equiposPendientes = pendientes;
     this->riesgoTotal = riesgo;
     this->estadoGeneral = estado;
 }
@@ -26,7 +26,7 @@ string ReporteDiario::generarTexto() {
     reporte += "\n";
 
     // Mostrar faltantes
-    reporte += "Backlog pendiente: " + to_string(equiposPendientes.size()) + "\n";
+    reporte += "Backlog pendiente: " + to_string(equiposPendientes) + "\n";
 
     // Datos del estado del laboratori
     reporte += "Riesgo global: " + to_string(riesgoTotal) + "\n";

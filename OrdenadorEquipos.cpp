@@ -10,6 +10,11 @@ void OrdenadorEquipos::ordenarPorPrioridad(vector<Equipo *> &equipos) {
     mergeSort(equipos, 0, equipos.size() - 1);
 }
 
+void OrdenadorEquipos::ordenarPorId(vector<Equipo*>& equipos) {
+    if (equipos.size() <= 1) return;
+    mergeSortPorId(equipos, 0, equipos.size() - 1);
+}
+
 void OrdenadorEquipos::mergeSort(vector<Equipo *> &equipos, int inicio, int fin) {
     if (inicio < fin) {
 
@@ -67,6 +72,50 @@ void OrdenadorEquipos::merge(vector<Equipo *> &equipos, int inicio, int medio, i
     }
 
 
+    while (j < derecha.size()) {
+        equipos[k] = derecha[j];
+        j++;
+        k++;
+    }
+}
+void OrdenadorEquipos::mergeSortPorId(vector<Equipo*>& equipos, int inicio, int fin) {
+    if (inicio < fin) {
+        int medio = inicio + (fin - inicio) / 2;
+        mergeSortPorId(equipos, inicio, medio);
+        mergeSortPorId(equipos, medio + 1, fin);
+        mergePorId(equipos, inicio, medio, fin);
+    }
+}
+
+void OrdenadorEquipos::mergePorId(vector<Equipo*>& equipos, int inicio, int medio, int fin) {
+    vector<Equipo*> izquierda;
+    vector<Equipo*> derecha;
+
+    for (int i = inicio; i <= medio; i++) {
+        izquierda.push_back(equipos[i]);
+    }
+    for (int j = medio + 1; j <= fin; j++) {
+        derecha.push_back(equipos[j]);
+    }
+
+    int i = 0, j = 0, k = inicio;
+
+    while (i < izquierda.size() && j < derecha.size()) {
+        if (izquierda[i]->getId() <= derecha[j]->getId()) {
+            equipos[k] = izquierda[i];
+            i++;
+        } else {
+            equipos[k] = derecha[j];
+            j++;
+        }
+        k++;
+    }
+
+    while (i < izquierda.size()) {
+        equipos[k] = izquierda[i];
+        i++;
+        k++;
+    }
     while (j < derecha.size()) {
         equipos[k] = derecha[j];
         j++;

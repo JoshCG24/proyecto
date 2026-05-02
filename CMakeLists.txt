@@ -32,6 +32,4 @@ add_executable(proyecto main.cpp
         CalculadorRiesgo.h
         Simulador.cpp
         Simulador.h
-        Tecnico.cpp
-        Tecnico.h
 )

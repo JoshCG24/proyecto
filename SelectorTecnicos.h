@@ -11,9 +11,9 @@
 
 class SelectorTecnicos {
     private:
-    int cantidadTecnicos;
+    int cantidadTecnicos=3;
     public:
-    vector<Equipo*> EquipoTecnicos(vector<Equipo*> equipos);
+    vector<Equipo*> EquipoTecnicos(const vector<Equipo*> &equipos);
 };
 
 
