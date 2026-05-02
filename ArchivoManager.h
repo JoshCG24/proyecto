@@ -17,6 +17,7 @@ class ArchivoManager {
     vector<Equipo*> cargarEquipos(string ruta);
     void guardarReporteDiario(ReporteDiario* reporte);
     void guardarReporteFinal(string ruta,string resumen);
+    void imprimirArchivo(const std::string& nombreArchivo);
 };
 
 

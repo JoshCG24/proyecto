@@ -18,6 +18,7 @@ Simulador::Simulador(vector<Equipo*>& equiposIniciales, CalcularPrioridad* cp, O
 }
 
 void Simulador::simular() {
+    limpiarArchivosManualmente();
     for (int i = 1; i <= diasSimulacion; i++) {
         ejecutarDia(i);
     }
@@ -25,8 +26,9 @@ void Simulador::simular() {
 }
 
 void Simulador::ejecutarDia(int dia) {
+
     cout << "--- Iniciando Dia " << dia << " ---" << endl;
-    
+
 
     degradarEquipos();
     gestorIncidencias->actualizarIncidencias(equipos, dia);
@@ -62,12 +64,14 @@ void Simulador::ejecutarMantenimientos(const vector<Equipo*>& seleccionados) {
 
         if (e->getIncidenciaActivas() > 0) {
             m = new MantenimientoCorrectivo();
+            // --- NUEVO: Cerramos las incidencias del equipo ---
+            e->resolverIncidencia();
         } else {
             m = new MantenimientoPreventivo();
         }
 
         e->aplicarMantenimiento(m);
-        e->setTiempoInactivo(0);
+        e->setTiempoInactivo(0); // Reiniciamos su tiempo de espera
 
         delete m;
     }
@@ -81,20 +85,29 @@ void Simulador::actualizarSistema() {
 void Simulador::generarReporte(int dia, const vector<Equipo*>& seleccionados) {
     double riesgo = calculadorRiesgo->calcularRiesgoGlobal(equipos);
     string estado = calculadorRiesgo->clasificarRiesgoGlobal(equipos);
-    
-    // 🆕 Contar equipos que aún tienen incidencias activas
-    int equiposConProblemas = 0;
-    for (Equipo* e : equipos) {
-        if (e->getIncidenciaActivas() > 0) {
-            equiposConProblemas++;
+
+
+    int backlogReal = 0;
+    for (const Equipo* equipo : equipos) {
+
+        if (equipo->tieneIncidenciaPendiente()) {
+            backlogReal++;
         }
     }
 
-    ReporteDiario* rd = new ReporteDiario(dia, seleccionados, equiposConProblemas, riesgo, estado);
+
+    ReporteDiario* rd = new ReporteDiario(dia, seleccionados, backlogReal, riesgo, estado);
     archivoManager->guardarReporteDiario(rd);
     delete rd;
 }
 
-
 Simulador::~Simulador() {
+}
+void Simulador::limpiarArchivosManualmente() {
+
+    std::ofstream archivo("simulacion_diaria.txt", std::ios::trunc);
+
+    if (archivo.is_open()) {
+        archivo.close();
+    }
 }

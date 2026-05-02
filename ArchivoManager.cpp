@@ -51,3 +51,19 @@ void ArchivoManager::guardarReporteFinal(string ruta, string resumen) {
         archivo.close();
     }
 }
+
+void ArchivoManager::imprimirArchivo(const std::string& nombreArchivo) {
+    std::ifstream archivo(nombreArchivo);
+    std::string linea;
+
+    if (archivo.is_open()) {
+        std::cout << "\n--- Contenido de " << nombreArchivo << " ---" << std::endl;
+        while (std::getline(archivo, linea)) {
+            std::cout << linea << std::endl; // Imprime cada línea en la consola
+        }
+        std::cout << "-------------------------------------------\n" << std::endl;
+        archivo.close();
+    } else {
+        std::cerr << "No se pudo abrir el archivo: " << nombreArchivo << std::endl;
+    }
+}

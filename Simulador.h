@@ -17,7 +17,7 @@ class Simulador {
 private:
     vector<Equipo*> equipos;
     int diasSimulacion = 30;
-
+    int backlogActual = 0;
     CalcularPrioridad* calculadorPrioridad;
     OrdenadorEquipos* ordenador;
     BuscarEquipos* buscador;
@@ -44,6 +44,7 @@ private:
     void degradarEquipos();
     void ejecutarMantenimientos(const vector<Equipo*>& seleccionados);
     void actualizarSistema();
+    void limpiarArchivosManualmente();
     void generarReporte(int dia, const vector<Equipo*>& seleccionados);
 };
 

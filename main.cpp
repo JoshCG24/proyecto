@@ -73,6 +73,10 @@ int main() {
     for (Equipo* e : equipos) {
         delete e;
     }
+    ArchivoManager gestorArchivos;
+    gestorArchivos.imprimirArchivo("resultado_final.txt");
+    gestorArchivos.imprimirArchivo("simulacion_diaria.txt");
+
     equipos.clear();
 
     return 0;
