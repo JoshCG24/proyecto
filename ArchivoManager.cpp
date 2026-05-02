@@ -2,7 +2,7 @@
 // Created by joshu on 4/24/2026.
 //
 #include "ArchivoManager.h"
-vector<Equipo*> ArchivoManager::cargarEquipos(string ruta) {
+vector<Equipo*> ArchivoManager::cargarEquipos(const string& ruta) {
     vector<Equipo*> lista;
     ifstream archivo(ruta);
 
