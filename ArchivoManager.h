@@ -11,13 +11,36 @@ using namespace std;
 #include "ReporteDiario.h"
 #include <iostream>
 
+#include <exception>
+#include <string>
+
+class ArchivoInvalidoException : public std::exception {
+public:
+    const char* what() const noexcept override {
+        return "Error: No se pudo abrir el archivo.";
+    }
+};
+
+class FormatoInvalidoException : public std::exception {
+public:
+    const char* what() const noexcept override {
+        return "Error: Formato de archivo invalido.";
+    }
+};
+
+class OperacionInconsistenteException : public std::exception {
+public:
+    const char* what() const noexcept override {
+        return "Error: Operacion inconsistente.";
+    }
+};
 
 class ArchivoManager {
     public:
     vector<Equipo*> cargarEquipos(string ruta);
     void guardarReporteDiario(ReporteDiario* reporte);
     void guardarReporteFinal(string ruta,string resumen);
-    void imprimirArchivo(const std::string& nombreArchivo);
+    void imprimirArchivo(const string& ruta);
 };
 
 
