@@ -62,21 +62,20 @@ void Simulador::ejecutarMantenimientos(const vector<Equipo*>& seleccionados) {
 
         if (e->getIncidenciaActivas() > 0) {
             m = new MantenimientoCorrectivo();
+            // --- NUEVO: Cerramos las incidencias del equipo ---
+            e->resolverIncidencia();
         } else {
             m = new MantenimientoPreventivo();
         }
 
         e->aplicarMantenimiento(m);
-        e->setTiempoInactivo(0);
+        e->setTiempoInactivo(0); // Reiniciamos su tiempo de espera
 
         delete m;
     }
 }
 
 
-void Simulador::actualizarSistema() {
-
-}
 
 void Simulador::generarReporte(int dia, const vector<Equipo*>& seleccionados) {
     double riesgo = calculadorRiesgo->calcularRiesgoGlobal(equipos);

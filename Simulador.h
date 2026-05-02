@@ -43,7 +43,7 @@ private:
     void ejecutarDia(int dia);
     void degradarEquipos();
     void ejecutarMantenimientos(const vector<Equipo*>& seleccionados);
-    void actualizarSistema();
+
     void generarReporte(int dia, const vector<Equipo*>& seleccionados);
 };
 
