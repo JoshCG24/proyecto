@@ -18,6 +18,7 @@ Simulador::Simulador(vector<Equipo*>& equiposIniciales, CalcularPrioridad* cp, O
 }
 
 void Simulador::simular() {
+    limpiarArchivosManualmente();
     for (int i = 1; i <= diasSimulacion; i++) {
         ejecutarDia(i);
     }
@@ -25,6 +26,7 @@ void Simulador::simular() {
 }
 
 void Simulador::ejecutarDia(int dia) {
+
     cout << "--- Iniciando Dia " << dia << " ---" << endl;
 
 
@@ -100,4 +102,12 @@ void Simulador::generarReporte(int dia, const vector<Equipo*>& seleccionados) {
 }
 
 Simulador::~Simulador() {
+}
+void Simulador::limpiarArchivosManualmente() {
+
+    std::ofstream archivo("simulacion_diaria.txt", std::ios::trunc);
+
+    if (archivo.is_open()) {
+        archivo.close();
+    }
 }

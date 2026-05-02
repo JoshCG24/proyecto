@@ -44,6 +44,7 @@ private:
     void degradarEquipos();
     void ejecutarMantenimientos(const vector<Equipo*>& seleccionados);
     void actualizarSistema();
+    void limpiarArchivosManualmente();
     void generarReporte(int dia, const vector<Equipo*>& seleccionados);
 };
 
