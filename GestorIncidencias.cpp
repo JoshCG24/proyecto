@@ -24,10 +24,9 @@ void GestorIncidencias::generarIncidencia(Equipo* e, int dia) {
     int numeroAleatorio = rand() % 100 + 1;
 
     if (numeroAleatorio <= probabilidad) {
-        int severidad = (rand() % 3) + 1; //calcula un numero con "%" , da un numero entre 0 y 3, pero se le suma 1, para que entre en el switch
-        //se le sumo uno para que la severidad no de 0, evitando la referencia a que no hay severidad.
+        int severidad = (rand() % 3) + 1;
 
-        // Descripción según severidad
+
         string descripcion;
         switch (severidad) {
             case 1:

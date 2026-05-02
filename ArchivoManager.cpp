@@ -36,7 +36,7 @@ int ArchivoManager::cargarIncidencias(const string& ruta, vector<Equipo*>& equip
         throw ArchivoInvalidoException(ruta);
     }
 
-    // Asegurar que equipos estén ordenados por ID para búsqueda binaria
+
     ordenador->ordenarPorId(equipos);
 
     string linea;

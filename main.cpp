@@ -51,7 +51,7 @@ int main() {
             equipos.push_back(new Equipo(id, criticidad, estado));
         }
 
-        // 2. Generar 300 incidencias de prueba (para cumplir E3)
+
         for (int i = 0; i < 300; i++) {
             int idx = rand() % 100;
             int sev = (rand() % 3) + 1;
@@ -64,14 +64,14 @@ int main() {
             equipos[idx]->agregarIncidencia(inc);
         }
 
-        // Ordenar por ID para búsqueda binaria
+
         ordenador.ordenarPorId(equipos);
 
         cout << "Equipos cargados: " << equipos.size() << endl;
         cout << "Iniciando simulacion de 30 dias..." << endl;
         cout << "========================================" << endl;
 
-        // Crear y ejecutar simulador
+
         Simulador simulador(equipos, &calcularPrioridad, &ordenador, &buscador,
                             &gestor, &selector, &calculador, &archivoManager);
 
@@ -82,11 +82,11 @@ int main() {
         cout << "Reporte diario guardado en: simulacion_diaria.txt" << endl;
         cout << "Reporte final guardado en: resultado_final.txt" << endl;
 
-        // Mostrar reportes en consola (usando el mismo archivoManager)
+
         archivoManager.imprimirArchivo("resultado_final.txt");
         archivoManager.imprimirArchivo("simulacion_diaria.txt");
 
-        // Liberar memoria de los equipos
+
         for (Equipo* e : equipos) {
             delete e;
         }

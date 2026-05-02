@@ -13,7 +13,7 @@ class ReporteDiario {
 private:
     int id;
     vector<Equipo*> equiposAtendidos;
-    vector<Equipo*> equiposPendientesLista; // lista completa de pendientes
+    vector<Equipo*> equiposPendientesLista;
     int equiposPendientesConteo;
     double riesgoTotal;
     string estadoGeneral;

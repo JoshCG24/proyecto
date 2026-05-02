@@ -14,11 +14,11 @@ class Mantenimiento;
 
 class Equipo {
 private:
-    string id;//indentidad del equipo
-    int criticidad;//que tan importante
-    double estado=100;//que tan bien esta del 1-100
-    int tiempo_inactivo=0;//cuanto tiempo lleva sin reparar
-    vector<Incidencia*> Incidencias ;//lista prblemas
+    string id;
+    int criticidad;
+    double estado=100;
+    int tiempo_inactivo=0;
+    vector<Incidencia*> Incidencias ;
     double prioridad=0.0;
 
 

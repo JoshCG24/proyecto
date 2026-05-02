@@ -4,9 +4,7 @@
 #include "MantenimientoPreventivo.h"
 #include <iostream>
 
-Simulador::Simulador(vector<Equipo*>& equiposIniciales, CalcularPrioridad* cp, OrdenadorEquipos* ord,
-                     BuscarEquipos* bus, GestorIncidencias* gi, SelectorTecnicos* st,
-                     CalculadorRiesgo* cr, ArchivoManager* am) {
+Simulador::Simulador(vector<Equipo*>& equiposIniciales, CalcularPrioridad* cp, OrdenadorEquipos* ord,BuscarEquipos* bus, GestorIncidencias* gi, SelectorTecnicos* st,CalculadorRiesgo* cr, ArchivoManager* am) {
     equipos = equiposIniciales;
     calculadorPrioridad = cp;
     ordenador = ord;
